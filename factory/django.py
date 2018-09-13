@@ -197,8 +197,8 @@ class FileField(declarations.ParameteredAttribute):
 
         if params.get('from_path'):
             path = params['from_path']
-            f = open(path, 'rb')
-            content = django_files.File(f, name=path)
+            with open(path, 'rb') as f:
+                content = django_files.base.ContentFile(f.read(), name=path)
 
         elif params.get('from_file'):
             f = params['from_file']
